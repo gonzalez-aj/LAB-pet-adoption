@@ -1,4 +1,4 @@
-const pets = [
+const pets = [ //this is an array, it can hold primitive data types 
     {
       id: 1,
       name: "Dusty",
@@ -235,8 +235,42 @@ const pets = [
         id: 30,
       name: "Lucy",
       color: "Red",
-      specialSkill: "Doesn’t get weirded out by the word “moist.”",
+      specialSkill: "Doesn't get weirded out by the word “moist.”",
       type: "dino",
       imageUrl: "http://lsae2.iypcdn.com/static//modules/uploads/photos/language1/dino-live-22.jpg?119"
     }
   ];
+
+  const rootDiv = 
+  document.getElementById("root");
+
+  for (let i = 0; i < pets.length; i++) {   
+    const pet = pets[i];
+
+    const cardString = `
+        <div class="card text-center">
+          
+          <div class="card-header">
+            ${pet.name}
+          </div>
+          
+          <img src="${pet.imageURL}" class="card-img-top" alt="a picture of ${pet.color} ${pet.type}">
+          
+          <div class="card-body">
+            <h3>${pet.color}</h3>
+            <p class="card-text">  ${pet.name} is a ${pet.color} ${pet.type}.</p>
+            <p> ${pet.name}'s special skill: ${pet.specialSkill}
+            </p> 
+          </div>
+          
+          <div class="card-footer">
+          Card footer
+          </div>
+
+        </div> 
+        
+`;
+rootDiv.innerHTML+=cardString;
+  }
+
+  // 

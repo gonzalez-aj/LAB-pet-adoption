@@ -1,0 +1,14 @@
+body {
+  background-color: aliceblue;
+}
+
+#root {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.card {
+  flex: 1 1 calc(33% - 40px);
+  margin: 20px;
+}
