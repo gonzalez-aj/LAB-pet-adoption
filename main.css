@@ -2,6 +2,12 @@ body {
   background-color: aliceblue;
 }
 
+.center {
+  display: flex;
+  justify-content: space-around;
+  padding: 1%;
+}
+
 #root {
   display: flex;
   flex-wrap: wrap;
