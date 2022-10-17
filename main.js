@@ -241,36 +241,89 @@ const pets = [ //this is an array, it can hold primitive data types
     }
   ];
 
-  const rootDiv = 
-  document.getElementById("root");
+  const rootDiv = document.getElementById("root");
 
   for (let i = 0; i < pets.length; i++) {   
     const pet = pets[i];
-
     const cardString = `
         <div class="card text-center">
-          
           <div class="card-header">
             ${pet.name}
           </div>
-          
           <img src="${pet.imageUrl}" class="card-img-top" alt="a picture of a(n) ${pet.color} ${pet.type}">
-          
           <div class="card-body">
             <h3>${pet.color}</h3>
             <p class="card-text">  ${pet.name} is a ${pet.color} ${pet.type}.
             ${pet.name}'s special skill: ${pet.specialSkill}
             </p> 
           </div>
-          
           <div class="card-footer text-bg-secondary">
           ${pet.type}
           </div>
-
         </div> 
-        
 `;
 rootDiv.innerHTML+=cardString;
   }
 
-  // 
+  const renderToDom = (divId, htmlToRender) => {
+    const selectedDiv = document.querySelector(divId);
+    selectedDiv.innerHTML = htmlToRender;
+  };
+
+  const cardsOnDom = (array) => {
+    let domString = "";
+    for (const member of array) {
+      domString += `
+      <div class="card text-center">
+        <div class="card-header">
+          ${member.name}
+        </div>
+        <img src="${member.imageUrl}" class="card-img-top" alt="a picture of a(n) ${member.color} ${member.type}">
+        <div class="card-body">
+          <h3>${member.color}</h3>
+          <p class="card-text">  ${member.name} is a ${member.color} ${member.type}.
+          ${member.name}'s special skill: ${member.specialSkill}
+          </p> 
+        </div>
+        <div class="card-footer text-bg-secondary">
+          ${member.type}
+        </div>
+      </div> `;
+    }
+    renderToDom("#root", domString);
+  }
+
+const filter = (array, typeString) => {
+    const typeArray = [];
+
+    for (const member of array) {
+      if (member.type === typeString) {
+        typeArray.push(member);
+      }
+    }; 
+    return typeArray;
+  }
+
+const showAllCats = document.querySelector("#catsonly");
+const showAllDogs = document.querySelector("#dogsonly");
+const showAllDinos = document.querySelector("#dinosonly");
+const showAllButton = document.querySelector("#allpets");
+
+showAllCats.addEventListener('click', () => {
+  const allCats = filter(pets, 'cat');
+  cardsOnDom(allCats);
+});
+
+showAllDogs.addEventListener('click', () => {
+  const allDogs = filter(pets, 'dog');
+  cardsOnDom(allDogs);
+});
+
+showAllDinos.addEventListener('click', () => {
+  const allDinos = filter(pets, 'dino');
+  cardsOnDom(allDinos);
+});
+
+showAllButton.addEventListener('click', () => {
+  cardsOnDom(pets);
+});
