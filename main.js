@@ -269,25 +269,24 @@ rootDiv.innerHTML+=cardString;
     const selectedDiv = document.querySelector(divId);
     selectedDiv.innerHTML = htmlToRender;
   };
-  
 
   const cardsOnDom = (array) => {
     let domString = "";
-    for (const pet of array) {
+    for (const member of array) {
       domString += `
       <div class="card text-center">
         <div class="card-header">
-          ${pet.name}
+          ${member.name}
         </div>
-        <img src="${pet.imageUrl}" class="card-img-top" alt="a picture of a(n) ${pet.color} ${pet.type}">
+        <img src="${member.imageUrl}" class="card-img-top" alt="a picture of a(n) ${member.color} ${member.type}">
         <div class="card-body">
-          <h3>${pet.color}</h3>
-          <p class="card-text">  ${pet.name} is a ${pet.color} ${pet.type}.
-          ${pet.name}'s special skill: ${pet.specialSkill}
+          <h3>${member.color}</h3>
+          <p class="card-text">  ${member.name} is a ${member.color} ${member.type}.
+          ${member.name}'s special skill: ${member.specialSkill}
           </p> 
         </div>
         <div class="card-footer text-bg-secondary">
-          ${pet.type}
+          ${member.type}
         </div>
       </div> `;
     }
@@ -302,7 +301,6 @@ const filter = (array, typeString) => {
         typeArray.push(member);
       }
     }; 
-
     return typeArray;
   }
 
