@@ -241,8 +241,13 @@ const pets = [ //this is an array, it can hold primitive data types
     }
   ];
 
-  const rootDiv = document.getElementById("root");
+  // ******************** //
+  // **** FUNCTIONS ***** //
+  // ******************** //
 
+// Render to DOM utility function
+  const rootDiv = document.getElementById("root");
+// get the cards on the DOM
   for (let i = 0; i < pets.length; i++) {   
     const pet = pets[i];
     const cardString = `
@@ -260,6 +265,7 @@ const pets = [ //this is an array, it can hold primitive data types
           <div class="card-footer text-bg-secondary">
           ${pet.type}
           </div>
+          <button class="btn btn-danger delete" id="delete--${pet.id}">Remove Furbaby</button>
         </div> 
 `;
 rootDiv.innerHTML+=cardString;
@@ -288,11 +294,12 @@ rootDiv.innerHTML+=cardString;
         <div class="card-footer text-bg-secondary">
           ${member.type}
         </div>
+        <button class="btn btn-danger" id="delete--${member.id}">Remove Furbaby</button>
       </div> `;
     }
     renderToDom("#root", domString);
   }
-
+// function to filter teammates with specific favorite color
 const filter = (array, typeString) => {
     const typeArray = [];
 
@@ -303,7 +310,17 @@ const filter = (array, typeString) => {
     }; 
     return typeArray;
   }
+// 1. Get all the cards to render on the DOM
+// cardsOnDom(team);
 
+// 2. Get only the teammates whose favorite color is blue on the DOM
+
+
+// ******************** //
+// ****** EVENTS ****** //
+// ******************** //
+
+// 1. Target both of the buttons on the DOM
 const showAllCats = document.querySelector("#catsonly");
 const showAllDogs = document.querySelector("#dogsonly");
 const showAllDinos = document.querySelector("#dinosonly");
@@ -327,3 +344,68 @@ showAllDinos.addEventListener('click', () => {
 showAllButton.addEventListener('click', () => {
   cardsOnDom(pets);
 });
+
+
+
+// ******************** //
+// ****** CREATE ****** //
+// ******************** //
+
+
+// 1. select/target the form on the DOM
+const form = document.querySelector('form');
+
+// 2. create a function that grabs all the values from the form, pushes the new object to the array, then repaints the DOM with the new teammate
+const createAnimal = (event) => {
+  event.preventDefault(); // EVERY TIME YOU CREATE A FORM, so it doesn't reset entirely
+
+  const newPetObj = {
+    id: pets.length + 1, // this needs to be unique check out the ticket here: https://github.com/orgs/nss-evening-web-development/discussions/126 
+    name: document.querySelector("#name").value,
+    color: document.querySelector("#color").value,
+    specialSkill: document.querySelector("#specialSkill").value,
+    type: document.querySelector("#type").value,    
+    imageUrl: document.querySelector("#imageUrl").value
+  }
+
+  //console.log(newPetObj); to test 
+
+  pets.push(newPetObj);
+  cardsOnDom(pets);
+  form.reset();
+}
+
+// 3. Add an event listener for the form submit and pass it the function (callback)
+
+form.addEventListener('submit', createAnimal);
+
+// ******************** //
+// ****** DELETE ****** //
+// ******************** //
+
+// Here we will be using event bubbling
+// 1. Target the app div
+const app = document.querySelector("#root");
+
+// 2. Add an event listener to capture clicks
+
+app.addEventListener('click', (event) => {
+  // 3. check e.target.id includes "delete"  target is a button 
+  if (event.target.id.includes("delete")) {
+    const [, id] = event.target.id.split("--");
+
+    // 4. add logic to remove from array
+    const index = pets.findIndex(event => event.id === Number(id));
+    pets.splice(index, 1);
+
+    // 5. Repaint the DOM wiconst app = document.querySelector("#app");th the updated array
+    cardsOnDom(pets);
+  }
+});
+
+const startApp = () => {
+  cardsOnDom(pets);
+  events(); // ALWAYS LAST
+}
+
+startApp();

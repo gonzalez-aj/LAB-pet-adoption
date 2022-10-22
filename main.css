@@ -11,14 +11,28 @@ body {
 #root {
   display: flex;
   flex-wrap: wrap;
-
 }
 
 .card {
-  flex: 1 1 calc(33% - 40px);
+  flex: 0 1 calc(33% - 40px);
   margin: 20px;
+  justify-content: center;
+  text-align: center;
 }
 
 .card-footer, footer {
   background-color: aqua;
+}
+
+#app {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+form {
+  margin: 20px;
+}
+ 
+.btn-danger {
+  margin: 10px;   
 }
